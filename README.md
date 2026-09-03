@@ -6,29 +6,6 @@ A full-stack, production-style **Pharmacy Inventory Management System**: a Node.
 
 ---
 
-## Table of Contents
-
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Architecture](#architecture)
-- [Database Schema](#database-schema)
-- [Installation](#installation)
-  - [PostgreSQL Setup](#postgresql-setup)
-  - [Backend Setup](#backend-setup)
-  - [Frontend Setup](#frontend-setup)
-  - [Running the Application](#running-the-application)
-- [Environment Variables](#environment-variables)
-- [Authentication](#authentication)
-- [Roles & Permissions](#roles--permissions)
-- [API Documentation](#api-documentation)
-- [Postman Collection](#postman-collection)
-- [Testing](#testing)
-- [Project Structure](#project-structure)
-- [Future Improvements](#future-improvements)
-
----
-
 ## Project Overview
 
 MedStock manages a pharmacy's medicines ("products"), categories, suppliers, stock levels, batches/expiry dates, and a full audit trail (`inventory_history`) of every stock movement. It ships with two dashboards:
