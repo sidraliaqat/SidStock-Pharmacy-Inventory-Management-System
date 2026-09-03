@@ -31,7 +31,7 @@ A full-stack, production-style **Pharmacy Inventory Management System**: a Node.
 
 ## Project Overview
 
-SidStock manages a pharmacy's medicines ("products"), categories, suppliers, stock levels, batches/expiry dates, and a full audit trail (`inventory_history`) of every stock movement. It ships with two dashboards:
+MedStock manages a pharmacy's medicines ("products"), categories, suppliers, stock levels, batches/expiry dates, and a full audit trail (`inventory_history`) of every stock movement. It ships with two dashboards:
 
 - **Admin Dashboard** — full CRUD over medicines/categories/suppliers/users, inventory operations, reports, and CSV export.
 - **Staff Dashboard** — read access to the catalog plus the ability to record stock movements, with all destructive/administrative actions hidden *and independently blocked on the backend*.
@@ -39,7 +39,9 @@ SidStock manages a pharmacy's medicines ("products"), categories, suppliers, sto
 ## Features
 
 - Medicine (product) CRUD with image upload
+- Soft delete for medicines, with an admin-only "Show Deleted" view and one-click restore
 - Categories & suppliers management (with "in-use" delete protection)
+- Supplier contact validation: Pakistani phone format (`+92XXXXXXXXXX`, `0XXXXXXXXXX`, or `+92-XXX-XXXXXXX`) enforced at both the API and database layer; at least one of email or phone is required per supplier
 - Batch tracking (batch number, purchase price, expiry date) per medicine
 - Full inventory history / audit trail for every stock change
 - Server-side search, multi-field filtering, sortable columns, and pagination — combinable in a single request
@@ -82,7 +84,7 @@ suppliers ───┼──→ medicines ──┬──→ medicine_batches (1
 ```
 
 - **Normalization:** `medicines` stores `category_id` / `supplier_id` foreign keys only — category/supplier names are never duplicated onto the medicine row.
-- **Constraints:** `UNIQUE` (email, sku, category name), `CHECK` (`price > 0`, `quantity >= 0`, `minimum_stock >= 0`, `role IN ('admin','staff')`, `transaction_type IN ('IN','OUT')`, **`users.email` must end in `@gmail.com`**), foreign keys with `ON DELETE` behavior.
+- **Constraints:** `UNIQUE` (email, sku, category name), `CHECK` (`price > 0`, `quantity >= 0`, `minimum_stock >= 0`, `role IN ('admin','staff')`, `transaction_type IN ('IN','OUT')`, **`users.email` must end in `@gmail.com`**, **`suppliers.phone` must match a Pakistani mobile format**), foreign keys with `ON DELETE` behavior.
 - **Indexes:** on `sku`, `name` (+ lowercased), `category_id`, `supplier_id`, `price`, `quantity`, `created_at`, `medicine_batches.expiry_date`, `inventory_history.medicine_id`/`created_at`/`user_id`.
 - **Soft delete:** `medicines`, `categories`, `suppliers` use `is_deleted` so history/FK integrity survives a "delete" — every query filters `is_deleted = FALSE`.
 
@@ -115,8 +117,8 @@ Seeded accounts (development only — **change or remove before deploying**):
 
 | Role  | Email                          | Password      |
 |-------|---------------------------------|---------------|
-| Admin | `SidStock.admin@gmail.com`      | `Admin@12345` |
-| Staff | `SidStock.staff@gmail.com`      | `Staff@12345` |
+| Admin | `medstock.admin@gmail.com`      | `Admin@12345` |
+| Staff | `medstock.staff@gmail.com`      | `Staff@12345` |
 
 ### Frontend Setup
 
@@ -172,6 +174,7 @@ JWT-based. `POST /api/auth/login` verifies the password with Bcrypt and returns 
 | View medicine details & inventory history | ✅ | ✅ |
 | Stock IN / Stock OUT | ✅ | ✅ |
 | Add / edit / delete medicines | ✅ | ❌ |
+| Restore a soft-deleted medicine | ✅ | ❌ |
 | Manage categories & suppliers | ✅ | ❌ |
 | Manage users | ✅ | ❌ |
 | Export CSV | ✅ | ❌ |
@@ -229,7 +232,3 @@ pharmacy-inventory-system/
 │       └── routes/               # ProtectedRoute
 └── docs/                             # API.md, Postman collection
 ```
-
-#   S i d S t o c k - P h a r m a c y - I n v e n t o r y - M a n a g e m e n t - S y s t e m 
- 
- 
