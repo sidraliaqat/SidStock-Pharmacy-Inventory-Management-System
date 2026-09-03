@@ -1,0 +1,26 @@
+# Dependencies
+**/node_modules/
+
+# Environment variables
+**/.env
+!**/.env.example
+
+# Uploaded files
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Build output
+frontend/dist/
+frontend/build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
