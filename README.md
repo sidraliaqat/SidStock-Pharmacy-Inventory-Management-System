@@ -86,17 +86,8 @@ cd backend
 cp .env.example .env      # then edit DATABASE_URL / JWT_SECRET as needed
 npm install
 npm run migrate           # creates all tables, constraints, indexes, triggers
-npm run seed               # seeds categories, suppliers, medicines, admin + staff accounts
 npm run dev                 # starts the API on http://localhost:5000 (nodemon)
 ```
-
-Seeded accounts (development only — **change or remove before deploying**):
-
-| Role  | Email                          | Password      |
-|-------|---------------------------------|---------------|
-| Admin | `medstock.admin@gmail.com`      | `Admin@12345` |
-| Staff | `medstock.staff@gmail.com`      | `Staff@12345` |
-
 ### Frontend Setup
 
 ```bash
