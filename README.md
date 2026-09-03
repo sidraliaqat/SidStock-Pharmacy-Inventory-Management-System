@@ -230,14 +230,6 @@ pharmacy-inventory-system/
 └── docs/                             # API.md, Postman collection
 ```
 
-## Future Improvements
-
-- Refresh tokens / session revocation list
-- Per-batch stock deduction (FEFO — first-expiry-first-out) instead of a single running quantity
-- Purchase orders workflow (supplier ordering, receiving, partial shipments)
-- Multi-branch/warehouse support
-- Email/SMS alerts for low stock and expiring batches
-- Audit log for admin actions beyond inventory (user/category/supplier changes)
-- Automated CI test pipeline and Dockerized local setup
-#   S i d S t o c k - P h a r m a c y - I n v e n t o r y - M a n a g e m e n t - S y s t e m  
+#   S i d S t o c k - P h a r m a c y - I n v e n t o r y - M a n a g e m e n t - S y s t e m 
+ 
  
